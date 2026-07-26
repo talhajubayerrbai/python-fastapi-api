@@ -1,0 +1,10 @@
+# udap:meta cloud=aws region=us-east-1 target=ec2
+
+user: User { udap-type: generic.user }
+vpc: VPC {
+  nginx: Nginx Proxy { udap-type: aws.ec2 }
+  web: FastAPI Server { udap-type: aws.ec2 }
+}
+
+user -> vpc.nginx: HTTPS
+vpc.nginx -> vpc.web: HTTP proxy
